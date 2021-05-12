@@ -241,47 +241,9 @@ if ( ! function_exists( 'alg_wc_shippingwoo' ) ) {
 alg_wc_shippingwoo();
 
 
-//HACEMOS UNA PEQUENA PRUEBA
-add_action("wp_footer", "prueba_acciones");
-function prueba_acciones(){
-	$taxonomy = "metodoenvios";
-	$terms = get_terms([
-		'taxonomy' => $taxonomy,
-		'hide_empty' => false,
-	]);
-
-	//if(count($terms) > 0){
-		
-	foreach ($terms as $key) {
-		echo "<h2>{$key->slug} - {$key->name}</h2>";
-		$variable = "admin_action_".$key->slug;
-
-
-		echo "<h1>{$variable}</h1>";
-		/*
-		$variable = "admin_action_".$key->slug;
-		add_action( $variable, array($this, 'shippingwoo_aplicar_envio') );
-		*/
-
-	}
-
-
-
-	//VEAMOS TODAS LAS ACCIONES PS
-	echo "<br><br><br>";
-
-
-	echo "<h1>=======================================================</h1>";
-	echo "<br>";
-
-	$hook_name = 'admin_bar_menu';
-	global $wp_filter;
-	//var_dump( $wp_filter[$hook_name] );
-	var_dump( $wp_filter );
-}
-
-
-//ACEMOS OTRA PRUEBA
+/**
+ * REGISTRAMOS ENVIOS PARA WOOCOMMERCE
+ */
 add_action('init', 'crear_Acciones_especiales');
 function crear_Acciones_especiales(){
 	$taxonomy = "metodoenvios";

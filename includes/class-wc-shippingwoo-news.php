@@ -85,7 +85,7 @@ if ( ! class_exists( 'Alg_WC_ShippingWoo_News' ) ) :
                 'menu_name'         => __( 'metodoenvios' ),
             );
             $args   = array(
-                'hierarchical'      => true, // make it hierarchical (like categories)
+                'hierarchical'      => false, // make it hierarchical (like categories)//JERARQUIAS
                 'labels'            => $labels,
                 'show_ui'           => true,
                 'show_admin_column' => true,
