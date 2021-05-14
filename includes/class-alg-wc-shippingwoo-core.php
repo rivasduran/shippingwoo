@@ -54,6 +54,11 @@ if ( ! class_exists( 'Alg_WC_shippingwoo_Core' ) ) :
 
 			//AGREGAMOS EL MENU
 			require_once 'class-wc-shippingwoo-menu.php';
+
+
+			//DATOS DEL PEDIDO
+			require_once 'class-wc-shippingwoo-datos-envios.php';
+			
 		}
 
 	}

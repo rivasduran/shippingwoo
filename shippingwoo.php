@@ -270,3 +270,19 @@ function crear_Acciones_especiales(){
 	}
 
 }
+
+/**
+ * Agregamos una tabla nueva a los tax
+ */
+//AGREGAMOS LOS METAS PERSONALIZADOS
+$shippingwoo_news = new Alg_WC_ShippingWoo_News();
+add_action( 'metodoenvios_add_form_fields', array($shippingwoo_news, 'metodoenvios_add_term_fields') );
+
+//AGREGAMOS LA OPCION DE EDITAR
+add_action( 'metodoenvios_edit_form_fields', array($shippingwoo_news, 'metodoenvios_edit_term_fields'), 10, 2 );
+
+
+//GUARDAMOS EL TAG
+add_action( 'created_metodoenvios', array($shippingwoo_news, 'metodoenvios_save_term_fields') );
+add_action( 'edited_metodoenvios', array($shippingwoo_news, 'metodoenvios_save_term_fields') );
+ 

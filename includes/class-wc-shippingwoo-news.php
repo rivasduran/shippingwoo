@@ -95,6 +95,8 @@ if ( ! class_exists( 'Alg_WC_ShippingWoo_News' ) ) :
             );
             //register_taxonomy( 'Envio', [ 'post' ], $args );
             register_taxonomy( 'metodoenvios', [ 'woocommerce' ], $args );
+
+            
        }
 
 
@@ -111,6 +113,46 @@ if ( ! class_exists( 'Alg_WC_ShippingWoo_News' ) ) :
             $this->todos = $terms;
 
             return $terms;
+        }
+
+
+        /**
+         * 
+         */
+        public function metodoenvios_add_term_fields( $taxonomy ) {
+ 
+            echo '<div class="form-field">
+            <label for="shippingwoo-url-tracking">Url tracking</label>
+            <input type="text" name="shippingwoo-url-tracking" id="shippingwoo-url-tracking" />
+            <p>Field description may go here.</p>
+            </div>';
+         
+        }
+
+        public function metodoenvios_edit_term_fields( $term, $taxonomy ) {
+ 
+            $value = get_term_meta( $term->term_id, 'shippingwoo-url-tracking', true );
+         
+            echo '<tr class="form-field">
+            <th>
+                <label for="shippingwoo-url-tracking">Url tracking</label>
+            </th>
+            <td>
+                <input name="shippingwoo-url-tracking" id="shippingwoo-url-tracking" type="text" value="' . esc_attr( $value ) .'" />
+                <p class="description">Field description may go here.</p>
+            </td>
+            </tr>';
+         
+        }
+
+        public function metodoenvios_save_term_fields( $term_id ) {
+ 
+            update_term_meta(
+                $term_id,
+                'shippingwoo-url-tracking',
+                sanitize_text_field( $_POST[ 'shippingwoo-url-tracking' ] )
+            );
+         
         }
     }
 
