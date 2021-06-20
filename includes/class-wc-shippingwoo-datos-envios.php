@@ -64,15 +64,37 @@ if ( ! class_exists( 'Alg_WC_ShippingWoo_DatosEnvios' ) ) :
             if ($tracking_number == "") {
                 $tracking_number = $order->get_meta('tracking_number', true);
             }
+
+            //TIPO DE ENVIO
+            $tipo_envio = $order->get_meta('tipo_envio', true);
+
+            //TRAEMOS TODOS LOS METODOS DE ENVIO
+            $metodos_envios = new Alg_WC_ShippingWoo_News;
+            $todos_envios = $metodos_envios->todos();
+
         
-            echo '<form method="post" action="CURRENT_FILE_URL">
+            $variables_envios = '<form method="post" action="CURRENT_FILE_URL">
                 <input type="text" name="tracking_number" value="' . $tracking_number . '" style="margin-bottom: 10px;">
         
-                <h3>Enviar de nuevo?</h3>
+                <h3>Metodo de envio</h3>
         
-                <select name="enviado_manual">
-                    <option value="no">No</option>
-                    <option value="si">Si</option>
+                <select name="tipo_envio">
+            ';
+
+            $variables_envios .= '<option value="">Seleccionar</option>';
+
+            foreach($todos_envios as $envio){
+                $default = "";
+
+                if($tipo_envio != "" && $tipo_envio == $envio->slug){
+                    $default = 'selected';
+                }
+
+                $variables_envios .= '<option value="'.$envio->slug.'" '.$default.'>'.$envio->name.'</option>';
+            }
+                    
+            
+            $variables_envios .= '
                 </select>
                 <br />
                 <br />
@@ -80,6 +102,8 @@ if ( ! class_exists( 'Alg_WC_ShippingWoo_DatosEnvios' ) ) :
                 <input type="submit" name="submit_trusted_list" value="' . $button_text . '" class="button button-primary"/>
                 <input type="hidden" name="trusted_list_nonce" value="' . wp_create_nonce() . '">
             </form>';
+
+            echo $variables_envios;
         }
 
         /**
@@ -87,6 +111,7 @@ if ( ! class_exists( 'Alg_WC_ShippingWoo_DatosEnvios' ) ) :
          */
         public function trusted_list_save_meta_box_data($post_id)
         {
+            $shippingwoo_emails = new Alg_WC_ShippingWoo_Emails;
         
             // Only for shop order
             if ('shop_order' != $_POST['post_type']) {
@@ -120,11 +145,20 @@ if ( ! class_exists( 'Alg_WC_ShippingWoo_DatosEnvios' ) ) :
                 $order = wc_get_order($post_id);
         
                 $tracking_number = $_POST['tracking_number'];
+                $metodoenvios = $_POST['tipo_envio'];
         
                 update_post_meta($order->id, 'tracking_number', esc_attr(htmlspecialchars($tracking_number)));
         
                 // $customeremail = $order->get_billing_email();
                 $order->add_order_note(sprintf("Se agrego la transacción ID: " . $tracking_number));
+
+                //CAMBIAMOS EL METODO DE ENVIO
+                
+                update_post_meta($order->id, 'tipo_envio', esc_attr(htmlspecialchars($metodoenvios)));
+
+                //ENVIAMOS EL EMAIL
+                $email_enviado = $shippingwoo_emails->enviar_pedidos_orden($order->id);
+
             }
         }
 

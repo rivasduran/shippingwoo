@@ -43,6 +43,9 @@ if ( ! class_exists( 'Alg_WC_shippingwoo_Core' ) ) :
 			}
             */
 
+			//AGREGAMOS LAS TABLAS EN LA BASE DE DATOS
+			require_once 'class-wc-db-config.php';
+			
             //AGREGAMOS LOS CAMPOS ARCHIVOS QUE SE ENCARGAN DE HACER COSAS
             require_once 'class-wc-shippingwoo-tablas.php';
 
@@ -58,6 +61,9 @@ if ( ! class_exists( 'Alg_WC_shippingwoo_Core' ) ) :
 
 			//DATOS DEL PEDIDO
 			require_once 'class-wc-shippingwoo-datos-envios.php';
+
+			//EMAIL DE ENVIO
+			require_once 'class-wc-shippingwoo-emails.php';
 			
 		}
 

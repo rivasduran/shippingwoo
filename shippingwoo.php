@@ -16,6 +16,15 @@
  * @package cpgw
  */
 
+add_action('wp_enqueue_scripts', 'css_api_invu');
+function css_api_invu() {
+	wp_enqueue_style( 'css_shippingwoo', plugins_url( '/build/css/shippingwoo.css', __FILE__ ) );
+	wp_enqueue_style( 'css_shippingwoo' );
+	//wp_enqueue_script( 'css_shippingwoo', plugins_url( '/js/relacion_js.js', __FILE__ ), array('jquery'), '1.0', true );
+}
+wp_enqueue_style( 'css_shippingwoo', plugins_url( '/build/css/shippingwoo.css', __FILE__ ) );
+wp_enqueue_style( 'css_shippingwoo' );
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -96,6 +105,12 @@ if ( ! class_exists( 'Alg_WC_ShippingWoo' ) ) :
             */
 
 			$this->todos();
+
+			$menus_nuevos = new Alg_WC_ShippingWoo_News;
+			$menus_nuevos->menus_complemento();
+
+			//AGREGAMOS AL MENU PRINCIPAL DEL COMPLEMENTO
+            //add_action( 'admin_menu', array($menus_nuevos, 'shmeh_menu') );
 		}
 
 		/**

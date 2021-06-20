@@ -1,0 +1,130 @@
+/* ESTILOS DEL PLUGIN */
+
+/*
+**
+	BOTON DE RELACIONAR
+**
+*/
+.categorias .button-primary{
+	/*text-align: right;*/
+	margin-bottom: 20px;
+	float: right;
+}
+
+.imagen img{
+	max-width: 240px;
+}
+
+.form-group{
+    margin-bottom: 1rem;
+}
+
+.form-group label{
+	display: inline-block;
+	margin-bottom: .5rem;
+}
+
+.form-control{
+	display: block;
+    width: 100%;
+    
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+input.form-control{
+    height: calc(1.5em + .75rem + 2px);
+}
+
+textarea.form-control{
+    min-height: 400px;
+}
+
+.quarterWidth{
+	width: 500px;
+}
+
+
+/*
+**
+	APARIENCIA DE LOS BOTONES
+**
+*/
+.botoneras{
+	float: left;
+}
+
+.botones p input.button.button-primary{
+	margin-top: .25rem!important;
+    margin-bottom: .25rem!important;
+    color: #007bff!important;
+    border-color: #007bff!important;
+    border: solid 1px!important;
+    display: inline-block!important;
+    font-weight: 400!important;
+    color: #212529!important;
+    text-align: center!important;
+    vertical-align: middle!important;
+    -webkit-user-select: none!important;
+    -moz-user-select: none!important;
+    -ms-user-select: none!important;
+    user-select: none!important;
+    background-color: transparent!important;
+    /*
+    border: 1px solid transparent!important;
+    */
+    padding: .375rem .75rem!important;
+    font-size: 1rem!important;
+    line-height: 1!important;
+    border-radius: .25rem!important;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out!important;
+    text-shadow: none!important;
+    box-shadow: none;
+}
+
+.boton1 p input.button.button-primary{
+
+}
+
+.boton1 p input.button.button-primary:hover{
+	color: #007bff!important;
+	border-color: #007bff!important;
+}
+
+.boton2 p input.button.button-primary:hover{
+	color: #6c757d!important;
+	border-color: #6c757d!important;
+}
+
+.boton3 p input.button.button-primary:hover{
+    color: #28a745!important;
+    border-color: #28a745!important;	
+}
+
+.campo_actualizado{
+	width: 500px;
+	height: 600px;
+	border: solid 1px #e1e1e1;
+	border-radius: 20px;
+	display: block;
+	margin: 10px auto;
+	overflow-y: scroll;
+}
+
+/*
+**	
+	MEJORANDO LA APARIENCIA DE LA IMAGEN DE RESPUESTA DEL FORMULARIO
+**
+*/
+
+.campo_actualizado img{
+	max-width: 50px;
+}

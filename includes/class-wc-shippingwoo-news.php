@@ -27,13 +27,6 @@ if ( ! class_exists( 'Alg_WC_ShippingWoo_News' ) ) :
 		 * @todo    [dev] add option to pre-fill input fields on checkout with previous customer values (i.e. save it in customer meta)
 		 */
 		public function __construct() {
-            //AGREGAMOS AL MENU PRINCIPAL DEL COMPLEMENTO
-            add_action( 'admin_menu', array($this, 'shmeh_menu') );
-            add_action( 'parent_file', array($this, 'menu_highlight') );
-
-
-            //ESTA ACCION ES CUANDO SE INSTALA EL COMPLEMENTO, PARA PODER CREAR LA NUEVA TAXONOMIA DE ENVIOS
-            add_action( 'init', array($this, 'wporg_register_taxonomy_Envio') );
             
 
             $todos = $this->todos();
@@ -47,10 +40,26 @@ if ( ! class_exists( 'Alg_WC_ShippingWoo_News' ) ) :
         public $todos = [];
 
         /**
+         * MENUS
+         */
+        public function menus_complemento(){
+            //ESTA ACCION ES CUANDO SE INSTALA EL COMPLEMENTO, PARA PODER CREAR LA NUEVA TAXONOMIA DE ENVIOS
+            add_action( 'init', array($this, 'wporg_register_taxonomy_Envio') );
+
+            //AGREGAMOS AL MENU PRINCIPAL DEL COMPLEMENTO
+            add_action( 'admin_menu', array($this, 'shmeh_menu') );
+            add_action( 'parent_file', array($this, 'menu_highlight') );
+        }
+
+        /**
          * AGREGAMOS AL MENU
          */
         public function shmeh_menu() {
             add_submenu_page( 'sw', 'Agregar Nuevos', 'Agregar Nuevos', 'manage_options', 'edit-tags.php?taxonomy=metodoenvios');
+        }
+
+        public function shippingwoo_nuevos(){
+
         }
 
         /**
@@ -87,6 +96,7 @@ if ( ! class_exists( 'Alg_WC_ShippingWoo_News' ) ) :
             $args   = array(
                 'hierarchical'      => false, // make it hierarchical (like categories)//JERARQUIAS
                 'labels'            => $labels,
+                'public'            => true,
                 'show_ui'           => true,
                 'show_admin_column' => true,
                 'query_var'         => true,
@@ -94,7 +104,27 @@ if ( ! class_exists( 'Alg_WC_ShippingWoo_News' ) ) :
                 'show_in_menu' => true
             );
             //register_taxonomy( 'Envio', [ 'post' ], $args );
+            //register_taxonomy( 'metodoenvios', [ 'shop_order' ], $args );//CON ESTE SALE COMO SI FURA UN META DE LAS ORDENES
             register_taxonomy( 'metodoenvios', [ 'woocommerce' ], $args );
+
+
+            /**
+             * ELIMINAMOS LA COLUMNA QUE NO QUEREMOS
+             */
+            // Add to admin_init function
+            add_filter("manage_edit-metodoenvios_columns", 'theme_columns'); 
+            
+            function theme_columns($theme_columns) {
+                $new_columns = array(
+                    'cb' => '<input type="checkbox" />',
+                    'name' => __('Name'),
+                    'header_icon' => '',
+                    'description' => __('Description'),
+                    'slug' => __('Slug'),
+                    //'posts' => __('Posts')
+                    );
+                return $new_columns;
+            }
 
             
        }

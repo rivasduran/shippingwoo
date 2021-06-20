@@ -32,10 +32,16 @@ if ( ! class_exists( 'Alg_WC_ShippingWoo_Menu' ) ) :
 		}
 
         public function menu_shippingwoo(){
-            add_menu_page('SW', 'Shipping Woo', 'manage_options', 'sw', array($this, 'menu_principal'), 'dashicons-editor-paste-word', '35');
+
+			$shippingwoo_emails = new Alg_WC_ShippingWoo_Emails;
+
+            add_menu_page('SW', 'Shipping Woo', 'manage_options', 'sw', array($this, 'menu_principal_shipping'), 'dashicons-editor-paste-word', '35');
+
+			add_submenu_page( 'sw', 'Editar email', 'Editar email', 'manage_options', 'ajustes-email', array($shippingwoo_emails, 'ajustes_emails'));
+			//add_submenu_page('sw', 'Ajustes', 'Ajustes', 'manage_options', 'mis-ajustes-sw', 'ajustes_sw');
         }
         
-        public function menu_principal(){
+        public function menu_principal_shipping(){
             echo "Menu!";
         }
     }
@@ -43,4 +49,7 @@ if ( ! class_exists( 'Alg_WC_ShippingWoo_Menu' ) ) :
 endif;
 
 
-return new Alg_WC_ShippingWoo_Menu();
+//return new Alg_WC_ShippingWoo_Menu();
+$shippingwoo_menu = new Alg_WC_ShippingWoo_Menu();
+
+return $shippingwoo_menu;
